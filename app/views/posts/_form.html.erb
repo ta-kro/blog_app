@@ -1,0 +1,16 @@
+<%= form_for @post, html: { class: "form form-body" } do |f| %>
+  <%#= form_tag("/posts/create") do %>
+  
+  <%= render 'layouts/error_messages', model: f.object  %>
+  <%# エラーメッセージはform内に挿入可能 %>
+  <%# modelという変数名でf.objectをパーシャルに渡す。それによってパーシャルの汎用性が高まる %>
+
+  <%= f.text_area :content, value: @post.content %>
+  <%# <textarea name="content"> %>
+    <%#= @post.content %>
+  <%# </textarea> %>
+
+  <%= f.submit value: "投稿" %>
+  <%# <input type="submit" value="投稿"> %>
+
+<% end %>

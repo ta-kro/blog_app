@@ -6,9 +6,11 @@ class PostsController < ApplicationController
   end
 
   def index
+    @post = Post.all.order(created_at: :desc)
   end
 
   def new
+    @post = Post.new
   end
 
   def create
