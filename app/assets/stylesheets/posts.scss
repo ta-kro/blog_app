@@ -164,8 +164,8 @@
 
 
 
-/* posts/new ================================ */
-.posts-new textarea {
+/* posts/new & edit================================ */
+.posts-form textarea {
   font-size: 20px;
   padding: 10px;
   min-height: 140px;
@@ -173,7 +173,7 @@
   resize: none;
 }
 
-.posts-new textarea::-webkit-input-placeholder {
+.posts-form textarea::-webkit-input-placeholder {
   font-size: 24px;
   opacity: 0.5;
 }
