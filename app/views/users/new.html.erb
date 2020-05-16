@@ -1,24 +1,18 @@
-<div class="main users-new">
+<div class="main">
   <div class="container">
-    <div class="form-heading">新規ユーザー登録</div>
+    <div class="form-heading">ユーザー登録</div>
 
-    <%= form_for @user, html: { class: "form user-form form-body" } do |f| %>
-    
+    <%= form_with model: @user, class: "form users-form form-body" do |f| %>
       <%= render 'layouts/error_messages', model: f.object  %>
-      <%# エラーメッセージはform内に挿入可能 %>
-      <%# modelという変数名でf.objectをパーシャルに渡す。それによってパーシャルの汎用性が高まる %>
-
-      <p>ユーザー名</p>
+      <%= f.label :name, "ユーザーネーム" %>
       <%= f.text_field :name, value: @user.name %>
-      <p>メールアドレス</p>
+      <%= f.laber :email, "メールアドレス" %>
       <%= f.text_field :email, value: @user.email %>
-
-      <p>パスワード</p>
+      <%= f.label :password, "パスワード" %>
       <%= f.password_field :password, value: @user.password %>
-      <%# password_fieldでパスワード入力フォーム %>
-
+      <%= f.label :password_confirmation, "パスワード確認" %>
+      <%= f.password_field :password_confirmation, value: @user.password_confirmation %>
       <%= f.submit value: "新規登録" %>
-      
     <% end %>
 
   </div>
