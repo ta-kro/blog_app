@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   root 'posts#home'
-  get '/about', to: 'posts#about'
+  
   resources :posts
+  get '/about', to: 'posts#about'
   
   resources :users, except: [:new, :destroy]
   get '/signup', to: 'users#new'
