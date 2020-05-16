@@ -1,0 +1,18 @@
+<div class="main user-show">
+  <div class="container">
+
+    <div class="user">
+      <span class="user-img"><%= @user.image_name %></span>
+      <h2><%= @user.name %></h2>
+      <p><%= @user.email %></p>
+
+      <%# if @user.id == @current_user.id %>
+        <%= link_to "編集", edit_user_path(@user) %>
+      <%# end %>
+    </div>
+
+      <%# 以下投稿内容、いいねした投稿を並べたview %>
+
+    
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">ログイン</div>
+
+    <div class="form users-form">
+
+      <div class="form-body">
+
+        <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+
+        <%= form_tag login_path do %>
+        <%# form_withはform_tagとform_forの書き方の違いを統一し、どちらの場合でもFormBuilderオブジェクトのヘルパーメソッド(forだけで使えた.text_fieldなど)を使えるようにしたヘルパー。rails 5.1以降で使用可能。DBにデータを保存する場合(form_forと同じ使い方をする場合)、引数に「model: モデルクラスのインスタンス」を指定する必要がある。 %>
+
+          <p>メールアドレス</p>
+          <%= text_field_tag :email, @email %>
+          <p>パスワード</p>
+          <%= password_field_tag :password, @password %>
+          
+          <%= submit_tag "ログイン" %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
