@@ -14,19 +14,15 @@
     <header>
 
       <div class="header-logo">
-        <%# ログイン時とそうでない時にアクセスできるページを変えるために@current_userをapplicationコントローラーで定義 %>
-
         <% if @current_user %>
           <%= link_to "TweetApp", posts_path %>
         <% else %>
           <%= link_to "TweetApp", root_path %>
         <% end %>
-      </div> 
+      </div>
 
       <ul class="header-menus">
         <% if @current_user %>
-        <%# 未ログイン時に直接URLを打ち込んだらそのページに直接移動できてしまうのを防ぐために、authenticate_userメソッドをapplicationコントローラーで定義%>
-        
           <li>
             <%= link_to @current_user.name, user_path(@current_user) %>
           </li>
@@ -43,12 +39,10 @@
             <%= link_to "ログアウト", logout_path, method: :post, class: 'command', data: { confirm: 'ログアウトしますか?' }  %>
           </li>
         <% else %>
-        <%# 逆に既ログイン時に移動できるページを制限するために、forbid_login_userメソッドをapplicationコントローラーで定義%>
-        
           <li>
             <%= link_to "TweetAppとは", about_path %>
           </li>
-          <li> 
+          <li>
             <%= link_to "新規登録", signup_path %>
           </li>
           <li>

@@ -1,0 +1,20 @@
+<%= form_with model: @user do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
+
+  <%= f.label :name, "ユーザーネーム" %>
+  <%= f.text_field :name, value: @user.name %>
+
+  <%= f.laber :email, "メールアドレス" %>
+  <%= f.text_field :email, value: @user.email %>
+
+  <%#= f.label :image_name, 'アイコン' %>
+  <%#= f.file_field :image_name %>
+
+  <%= f.label :password, "パスワード" %>
+  <%= f.password_field :password, value: @user.password %>
+
+  <%= f.label :password_confirmation, "パスワード確認" %>
+  <%= f.password_field :password_confirmation, value: @user.password_confirmation %>
+
+  <%= f.submit value: "登録" %>
+<% end %>

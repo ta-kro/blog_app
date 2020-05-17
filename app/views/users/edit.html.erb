@@ -1,27 +1,8 @@
-<div class="main users-edit">
+<div class="main">
   <div class="container">
     <div class="form-heading">アカウント編集</div>
-
-    <%= form_for @user, html: { class: "form user-form form-body" } do |f| %>
-    <%# form_forは@userがモデル内にない場合はcreate、ある場合はupdateアクションへとurlを推測する %>
-    <%# フォーム内に関連付けられたfile_fieldがある場合、「multipart: true」は自動で適用されるので省略可能 %>
-
-      <%= render 'layouts/error_messages', model: f.object  %>
-      <%# エラーメッセージはform内に挿入可能 %>
-      <%# modelという変数名でf.objectをパーシャルに渡す。それによってパーシャルの汎用性が高まる %>
-
-      <p>ユーザー名</p>
-      <%= f.text_field :name, value: @user.name %>
-      <p>メールアドレス</p>
-      <%= f.text_field :email, value: @user.email %>
-
-      <%# <p>画像</p> %>
-      <%#= f.file_field :image_name %>
-      <%# file_fieldでファイル選択フォーム %>
-
-      <%= f.submit value: "保存" %>
-
-    <% end %>
-
+   <div class="form users-form form-body">
+      <%= render 'form' %>
+    </div>
   </div>
 </div>
