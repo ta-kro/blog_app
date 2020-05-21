@@ -15,9 +15,9 @@
 
       <div class="header-logo">
         <% if @current_user %>
-          <%= link_to "TweetApp", posts_path %>
+          <%= link_to "LogicalDiary", posts_path %>
         <% else %>
-          <%= link_to "TweetApp", root_path %>
+          <%= link_to "LogicalDiary", root_path %>
         <% end %>
       </div>
 
@@ -40,7 +40,7 @@
           </li>
         <% else %>
           <li>
-            <%= link_to "TweetAppとは", about_path %>
+            <%= link_to "LogicalDiaryとは", about_path %>
           </li>
           <li>
             <%= link_to "新規登録", signup_path %>

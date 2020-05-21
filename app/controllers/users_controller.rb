@@ -43,22 +43,37 @@ class UsersController < ApplicationController
     end
   end
 
-  # 削除ボタンは未実装
   def destroy
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "アカウントを削除しました"
-    redirect_to users_path
+    # redirect_to posts_path
   end
 
   def login_form
   end
 
   def login
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      flash[:notice] = "ログインしました"
+      redirect_to users_path
+    else
+      @error_message = "メールアドレスまたはパスワードが間違っています"
+      @email =  params[:email]
+      @password =  params[:password]
+      render 'login_form'
+    end
   end
 
   def logout
+    session[:user_id] = nil
+    flash[:notice] = 'ログアウトしました'
+    redirect_to login_path
   end
+
+
 
   private
   def user_params
@@ -68,7 +83,7 @@ class UsersController < ApplicationController
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     end
   end
 
