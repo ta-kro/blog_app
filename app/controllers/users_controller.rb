@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @user = User.all.order(created_at: :desc)
+    @users = User.all.order(created_at: :desc)
   end
 
   def show
@@ -86,6 +86,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirm)
   end
-
-
 end

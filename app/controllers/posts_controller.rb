@@ -6,7 +6,11 @@ class PostsController < ApplicationController
   end
 
   def index
-    @post = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(created_at: :desc)
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -21,10 +25,6 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
-  end
-
-  def show
-    @post = Post.find(params[:id])
   end
 
   def edit
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   end
 
 
-  
+
   private
   def post_params
     params.require(:post).permit(:content)

@@ -14,7 +14,7 @@
 
         <%= form_with url: login_path do |f|  %>
 
-          <%= f.laber :email, "メールアドレス" %>
+          <%= f.label :email, "メールアドレス" %>
           <%= f.text_field :email, value: @email %>
           
           <%= f.label :password, "パスワード" %>

@@ -12,7 +12,7 @@
   background-repeat: no-repeat;
   background-position: center 50%;
   background-size: cover;
-  // background-image: url("IMG_4704.jpg");
+  /* background-image: url("IMG_4704.jpg"); */
 }
 
 .home-main h2 {
@@ -23,14 +23,14 @@
   margin-bottom: 20px;
 }
 
-.home-main p {
-  font-size: 24px;
-}
 
 .home-message {
   position: relative;
 }
 
+.home-message p {
+  font-size: 24px;
+}
 
 
 
@@ -177,4 +177,3 @@
   font-size: 24px;
   opacity: 0.5;
 }
-
