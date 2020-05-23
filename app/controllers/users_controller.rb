@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user, only: [:index, :show, :edit, :update]
-  # before_action :forbid_login_user, only: [:new, :create, :login_form, :login]
+  before_action :authenticate_user, only: [:index, :show, :edit, :update]
+  before_action :forbid_login_user, only: [:new, :create, :login_form, :login]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "アカウントを削除しました"
-    # redirect_to posts_path
+    redirect_to posts_path
   end
 
   def login_form
@@ -75,16 +75,17 @@ class UsersController < ApplicationController
 
 
 
-  private
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirm)
-  end
-
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
       redirect_to posts_path
     end
   end
+
+  private
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirm)
+  end
+
 
 end
