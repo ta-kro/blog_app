@@ -1,5 +1,5 @@
-<%= form_with model: @user do |f| %>
-  <%#= render 'layouts/error_messages', model: f.object %>
+<%= form_with model: @user, class: "form form-body users-form", local: true do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
 
   <%= f.label :name, "ユーザーネーム" %>
   <%= f.text_field :name, value: @user.name %>

@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  
   def home
   end
 
@@ -18,7 +21,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    # @post = Post.new(post_params)
+    @user = User.find(@current_user.id)
+    @post = @user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿しました"
       redirect_to posts_path
@@ -49,6 +54,14 @@ class PostsController < ApplicationController
   end
 
 
+
+  def ensure_correct_user
+    @post = Post.find(params[:id])
+    if @post.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/posts/index")
+    end
+  end
 
   private
   def post_params
