@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user, except: [:home, :about]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def home
@@ -39,6 +39,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      @post.touch
       flash[:notice] = "編集しました"
       redirect_to posts_path
     else
@@ -59,7 +60,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user_id != @current_user.id
       flash[:notice] = "権限がありません"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     end
   end
 

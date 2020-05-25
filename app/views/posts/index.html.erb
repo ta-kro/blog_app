@@ -10,10 +10,16 @@
 
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to post.user.name, "/users/#{post.user.id}" %>
+            <%= link_to post.user.name, "/users/#{post.user_id}" %>
           </div>
 
           <%= link_to post.content, post_path(post) %>
+
+          <div class="post-time">
+            <% if post.created_at != post.updated_at%>
+              <span>(編集済み)</span>
+            <% end %>
+          </div>
         </div>
         
       </div>
