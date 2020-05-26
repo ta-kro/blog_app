@@ -3,8 +3,14 @@
     <h1 class="users-heading">ユーザー一覧</h1>
     <% @users.each do |user| %>
       <div class="users-index-item">
-          <%#= image_tag user.image_name, class: "user-left" %>
-          <%= link_to user.name, user_path(user), class: "user-name user-right" %>
+        <span class="user-img">
+          <% if user.image_name? %>
+            <%= image_tag user.image_name.url %>
+          <% else %>
+            <%= image_tag "default_icon.jpeg" %>
+          <% end %>
+        </span>
+        <%= link_to user.name, user_path(user), class: "user-name user-right" %>
       </div>
     <% end %>
   </div>

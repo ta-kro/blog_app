@@ -33,9 +33,6 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      #画像を保存する必要あり
-      # @user.image_name = "#{@user.id}.jpg"
-      # File.binwrite @user.image_name, params[:image_name].read
       flash[:notice] = "アカウントを編集しました"
       redirect_to user_path(@user)
     else
@@ -84,6 +81,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :image_name, :password, :password_confirmation)
   end
 end

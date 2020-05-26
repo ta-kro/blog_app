@@ -3,11 +3,15 @@
 
     <div class="user">
       <span class="user-img">
-        <%#= @user.image_name %>
+        <% if @user.image_name? %>
+          <%= image_tag @user.image_name.url %>
+        <% else %>
+          <%= image_tag "default_icon.jpeg" %>
+        <% end %>
       </span>
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <%if @user.id == @current_user.id %>
+      <% if @user.id == @current_user.id %>
         <%= link_to "編集", edit_user_path(@user) %>
         <%= link_to "削除", user_path(@user), method: :delete, data: {confirm: "アカウントを削除しますか？"} %>
       <% end %>
