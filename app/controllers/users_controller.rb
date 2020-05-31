@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:index, :show, :edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update]
   before_action :forbid_login_user, only: [:new, :create, :login_form, :login]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: :destroy
 
   def index
-    @users = User.all.order(created_at: :desc)
+    # ページ表示件数(デフォルトは30件)を「:per_pagr: 数」で指定可能
+    @users = User.paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -18,9 +20,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user_id]  = @user.id
-      flash[:notice] = "登録が完了しました"
+      log_in @user
+      flash[:success] = "登録が完了しました"
       redirect_to user_path(@user)
+      # GET "/users/#{@user.id}" => show
     else
       render 'new'
     end
@@ -33,54 +36,48 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "アカウントを編集しました"
-      redirect_to user_path(@user)
+      flash[:success] = "アカウントを編集しました"
+      redirect_to @user
     else
       render 'edit'
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    flash[:notice] = "アカウントを削除しました"
-    redirect_to posts_path
-  end
-
-  def login_form
-  end
-
-  def login
-    @user = User.find_by(email: params[:email])
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
-      flash[:notice] = "ログインしました"
-      redirect_to users_path
-    else
-      @error_message = "メールアドレスまたはパスワードが間違っています"
-      @email =  params[:email]
-      @password =  params[:password]
-      render 'login_form'
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    flash[:notice] = 'ログアウトしました'
-    redirect_to login_path
+    User.find(params[:id]).destroy
+    flash[:success] = "アカウントを削除しました"
+    #indexに表示させるから多分あってる
+    redirect_back(fallback_location: users_path)
   end
 
 
-
-  def ensure_correct_user
-    if @current_user.id != params[:id].to_i
-      flash[:notice] = "権限がありません"
-      redirect_to posts_path
-    end
-  end
 
   private
+
   def user_params
     params.require(:user).permit(:name, :email, :image_name, :password, :password_confirmation)
   end
+
+  # 正しいユーザーかどうか確認
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user?(@user)
+      flash[:danger] = "権限がありません"
+      redirect_to(root_path)
+    end
+  end
+
+  def forbid_login_user
+    if logged_in?
+      flash[:danger] = "すでにログインしています"
+      redirect_to root_path
+    end
+  end
+
+  #adminカラムを付与後
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
 end
+
+

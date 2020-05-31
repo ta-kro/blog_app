@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user, except: [:home, :about]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
-  
+  before_action :logged_in_user, except: [:home, :about]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+
   def home
   end
 
@@ -48,24 +48,24 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-    flash[:notice] = "削除しました"
+    Post.find(params[:id]).destroy
+    flash[:danger] = "削除しました"
     redirect_to posts_path
   end
 
-
-
-  def ensure_correct_user
-    @post = Post.find(params[:id])
-    if @post.user_id != @current_user.id
-      flash[:notice] = "権限がありません"
-      redirect_to posts_path
-    end
-  end
-
+  
   private
   def post_params
     params.require(:post).permit(:content)
   end
+
+  # 正しいユーザーかどうか確認
+  def correct_user
+    @post = Post.find(params[:id])
+    if @post.user_id != @current_user.id
+      flash[:danger] = "権限がありません"
+      redirect_to posts_path
+    end
+  end
+
 end

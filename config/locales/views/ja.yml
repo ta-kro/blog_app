@@ -1,0 +1,5 @@
+ja:
+  will_paginate:
+    previous_label: 前ページ
+    next_label: 次ページ
+    page_gap: …

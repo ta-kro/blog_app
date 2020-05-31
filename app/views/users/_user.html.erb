@@ -1,0 +1,17 @@
+<li>
+  <div class="users-index-item">
+    <span class="user-img">
+      <% if user.image_name? %>
+        <%= image_tag user.image_name.url %>
+      <% else %>
+        <%= image_tag "default_icon.jpeg" %>
+      <% end %>
+    </span>
+    
+    <%= link_to user.name, user, class: "user-name user-right" %>
+    <% if current_user.admin? && !current_user?(user) %>
+      <%# 管理ユーザーでかつ自分以外のユーザーに削除リンクを表示 %>
+      | <%= link_to "削除", user, method: :delete, data: { confirm: "このユーザーを削除しますか？" } %>
+    <% end %>
+  </div>
+<li>

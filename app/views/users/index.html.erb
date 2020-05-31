@@ -1,17 +1,18 @@
 <div class="main">
   <div class="container">
     <h1 class="users-heading">ユーザー一覧</h1>
-    <% @users.each do |user| %>
-      <div class="users-index-item">
-        <span class="user-img">
-          <% if user.image_name? %>
-            <%= image_tag user.image_name.url %>
-          <% else %>
-            <%= image_tag "default_icon.jpeg" %>
-          <% end %>
-        </span>
-        <%= link_to user.name, user_path(user), class: "user-name user-right" %>
-      </div>
-    <% end %>
+
+    <%= will_paginate %>
+
+    <ul class="users">
+      <%# Railsは@usersをUserオブジェクトのリストと推測し、それぞれのユーザーを_user.html.erbパーシャルで出力する %>
+      <%= render @users %>
+    </ul>
+
+    <%= will_paginate %>
+    
   </div>
 </div>
+
+
+

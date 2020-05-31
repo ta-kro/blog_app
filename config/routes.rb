@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   resources :posts
   get '/about', to: 'posts#about'
   
-  resources :users, except: [:new]
+  resources :users
   get '/signup', to: 'users#new'
-  get '/login', to: 'users#login_form'
-  post '/login', to: 'users#login'
-  post '/logout', to: 'users#logout'
+  post '/signup',  to: 'users#create'
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  get 'logout' => 'sessions#destroy'
+
 end

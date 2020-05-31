@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html>
+<%# コメント部分はrails tutorial%>
   <head>
+    <title><%#= full_title(yield(:title)) %></title>
     <title>LogicalDiary</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%#= render 'layouts/shim' %>
   </head>
 
   <body>
     <header>
 
       <div class="header-logo">
-        <% if @current_user %>
-          <%= link_to "LogicalDiary", posts_path %>
-        <% else %>
           <%= link_to "LogicalDiary", root_path %>
-        <% end %>
       </div>
 
       <ul class="header-menus">
-        <% if @current_user %>
+        <% if logged_in? %>
           <li>
             <%= link_to @current_user.name, user_path(@current_user) %>
           </li>
@@ -36,7 +33,7 @@
             <%= link_to "ユーザー一覧",  users_path %>
           </li>
           <li>
-            <%= link_to "ログアウト", logout_path, method: :post, class: 'command', data: { confirm: 'ログアウトしますか?' }  %>
+            <%= link_to "ログアウト", logout_path, class: 'command', data: { confirm: 'ログアウトしますか?' }  %>
           </li>
         <% else %>
           <li>
@@ -53,13 +50,20 @@
 
     </header>
 
-    <% if flash[:notice] %>
-      <div class="flash">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-    
-    <%= yield %>
+    <%#= render 'layouts/header' %>
+
+    <div class="container">
+
+      <% flash.each do |message_type, message| %>
+        <div class="flash flash[<%= message_type %>]"><%= message %></div>
+      <% end %>
+      <%= yield %>
+
+    </div>
+
+    <%#= render 'layouts/footer' %>
+    <%#= debug(params) if Rails.env.development? %>
 
   </body>
 </html>
+
