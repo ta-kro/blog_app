@@ -1,0 +1,7 @@
+<h1>Logical Diary</h1>
+
+<p><%= @user.name %> 様</p>
+
+<p>Logical Diary へようこそ</p>
+
+<%= link_to "アカウント認証はこちらをクリック", edit_account_activation_url(@user.activation_token, email: @user.email) %>

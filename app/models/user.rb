@@ -5,6 +5,9 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   before_save :downcase_email
+  # createアクションが呼ばれる前に
+  before_create :create_activation_digest
+
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
@@ -32,16 +35,34 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  # 渡されたトークンがダイジェストにある(ハッシュ化された)remember_tokenと一致したらtrueを返す
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  # 渡されたトークンが#{attribute}_digestにある(ハッシュ化された)tokenと一致したらtrueを返す
+  def authenticated?(attribute, token)
+    # sendメソッドに渡した引数を、そのオブジェクトのメソッドとして動的に活用できる
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def activate
+    update_attribute(:activated, true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
 
   private
-  def downcase_email
-    self.email = email.downcase
-  end
+    def downcase_email
+      self.email = email.downcase
+    end
+    
+    def create_activation_digest
+      # acrivation_tokenの生成とactivation_digestへハッシュ化して追加
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(self.activation_token)
+      # @user.activation_digest => ハッシュ値
+    end
 
 end

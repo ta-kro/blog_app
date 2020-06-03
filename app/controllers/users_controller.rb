@@ -20,8 +20,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "登録が完了しました"
+      @user.send_activation_email #user.rbに定義
+      flash[:info] = "確認メールを開いて登録を完了させてください"
+      # ここでログインはしない
+      # log_in @user
+      # flash[:success] = "登録が完了しました"
       redirect_to user_path(@user)
       # GET "/users/#{@user.id}" => show
     else
