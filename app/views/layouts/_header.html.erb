@@ -1,0 +1,22 @@
+<header class="header">
+  <div class="header-logo">
+      <%= link_to "Groovy", root_path %>
+  </div>
+
+  <ul class="header-menus">
+    <% if logged_in? %>
+      <ul>
+        <li><%= link_to "アイコン", current_user %></li>
+        <li><%= link_to "投稿一覧",  posts_path %></li>
+        <li><%= link_to "新規投稿", new_post_path %></li>
+        <li><%= link_to "ユーザー一覧",  users_path %></li>
+        <li><%= link_to "ログアウト", logout_path, class: 'command', data: { confirm: 'ログアウトしますか' }  %></li>
+      </ul>
+    <% else %>
+      <ul>
+        <li><%= link_to "ログイン", login_path %></li>
+        <li><%= link_to "新規登録", signup_path %></li>
+      </ul>
+    <% end %>
+  </ul>
+</header>
