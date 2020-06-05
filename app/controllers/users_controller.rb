@@ -21,12 +21,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email #user.rbに定義
-      flash[:info] = "確認メールを開いて登録を完了させてください"
-      # ここでログインはしない
-      # log_in @user
-      # flash[:success] = "登録が完了しました"
-      redirect_to user_path(@user)
-      # GET "/users/#{@user.id}" => show
+      flash[:info] = "メールを確認してください"
+      redirect_to root_path
     else
       render 'new'
     end

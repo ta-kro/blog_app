@@ -4,8 +4,8 @@
   <div class="">
   <p>メールアドレスを送信後、メールに記載された指示にしたがって下さい</p>
     <%= form_for :password_reset, url: password_resets_path do |f| %>
-      <%= f.label :email %>
-      <%= f.email_field :email, "メールアドレス"%>
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email %>
 
       <%= f.submit "送信"%>
     <% end %>
