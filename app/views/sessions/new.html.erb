@@ -9,9 +9,11 @@
         <%= form_for :session, url: login_path do |f|  %>
 
           <%= f.label :email, "メールアドレス" %>
-          <%= f.text_field :email %>
+          <%= f.email_field :email %>
 
           <%= f.label :password, "パスワード" %>
+          <%# パスワード再設定用リンクの追加%>
+          <%= link_to "パスワードをお忘れの方", new_password_reset_path %>
           <%= f.password_field :password %>
 
           <%= f.label :remember_me, class: "checkbox inline" do %>
@@ -19,7 +21,7 @@
             <span>ログイン状態を保持する</span>
           <% end %>
 
-          <%= f.submit value: "ログイン" %>
+          <%= f.submit "ログイン" %>
 
         <% end %>
 
