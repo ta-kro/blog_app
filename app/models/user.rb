@@ -5,7 +5,6 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   before_save :downcase_email
-  # createアクションが呼ばれる前に
   before_create :create_activation_digest
 
   validates :name, presence: true, length: {maximum: 50}
@@ -73,7 +72,7 @@ class User < ApplicationRecord
       self.email = email.downcase
     end
 
-    def create_activation_digest
+    def create_activation_digest #→before_createで使用
       # acrivation_tokenの生成とactivation_digestへハッシュ化して追加
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(self.activation_token)

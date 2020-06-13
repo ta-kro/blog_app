@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  before_action :get_user,   only: [:edit, :update]
+  before_action :get_user, only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
@@ -11,10 +11,11 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      flash[:info] = "パスワード再設定用のメールが送信されました。メールを確認して下さい"
+      flash[:info] = "メールを確認して下さい"
       redirect_to root_path
     else
       flash.now[:danger] = "登録されていないメールアドレスです"
+      @email = params[:password_reset][:email]
       render 'new'
     end
   end
@@ -30,7 +31,7 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @user.update_attributes(user_params)
       log_in @user
-      flash[:success] = "パスワードはリセットされました"
+      flash[:success] = "パスワードを更新しました"
       redirect_to @user
     else
       render 'edit'

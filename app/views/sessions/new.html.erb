@@ -1,34 +1,24 @@
 <div class="main">
   <div class="container">
     <div class="form-heading">ログイン</div>
+    <%= form_for :session, url: login_path, html: {class: "form form-body users-form"} do |f|  %>
 
-    <div class="form users-form">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, value: @email %>
 
-      <div class="form-body">
+      <%= f.label :password, "パスワード" %>
+      <%= link_to "パスワードをお忘れの方", new_password_reset_path %>
+      <%= f.password_field :password %>
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>ログイン状態を保持する</span>
+      <% end %>
 
-        <%= form_for :session, url: login_path do |f|  %>
+      <p>新規登録はコチラ    <%= link_to "新規登録", signup_path %></p>
+      <%= f.submit "ログイン" %>
 
-          <%= f.label :email, "メールアドレス" %>
-          <%= f.email_field :email %>
+    <% end %>
 
-          <%= f.label :password, "パスワード" %>
-          <%# パスワード再設定用リンクの追加%>
-          <%= link_to "パスワードをお忘れの方", new_password_reset_path %>
-          <%= f.password_field :password %>
-
-          <%= f.label :remember_me, class: "checkbox inline" do %>
-            <%= f.check_box :remember_me %>
-            <span>ログイン状態を保持する</span>
-          <% end %>
-
-          <%= f.submit "ログイン" %>
-
-        <% end %>
-
-        <p>新規登録はコチラ    <%= link_to "新規登録", signup_path %></p>
-
-      </div>
-    </div>
   </div>
 </div>
 

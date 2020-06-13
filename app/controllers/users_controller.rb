@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    # ページ表示件数(デフォルトは30件)を「:per_pagr: 数」で指定可能
+    # ページ表示件数(デフォルトは30件)を「:per_page: 数」で指定可能
     @users = User.paginate(page: params[:page], per_page: 10)
   end
 
@@ -45,7 +45,6 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "アカウントを削除しました"
-    #indexに表示させるから多分あってる
     redirect_back(fallback_location: users_path)
   end
 

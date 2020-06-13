@@ -1,13 +1,13 @@
-<h1>パスワードをお忘れですか？</h1>
-
-<div class="">
-  <div class="">
-  <p>メールアドレスを送信後、メールに記載された指示にしたがって下さい</p>
-    <%= form_for :password_reset, url: password_resets_path do |f| %>
+<div class="main">
+  <div class="container">
+    <div class="form-heading">パスワードリセット</div>
+    <%= form_for :password_reset, url: password_resets_path, html: {class: "form form-body users-form"} do |f| %>
+      <p>メールを送信後、パスワードの再設定を行って下さい</p>
       <%= f.label :email, "メールアドレス" %>
-      <%= f.email_field :email %>
+      <%= f.email_field :email, value: @email %>
 
       <%= f.submit "送信"%>
     <% end %>
   </div>
 </div>
+

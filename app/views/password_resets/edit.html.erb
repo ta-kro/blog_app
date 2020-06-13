@@ -1,17 +1,16 @@
-<h1>パスワード再設定</h1>
-
-<div class="">
-  <div class="">
-    <%= form_for @user, url: password_reset_path(params[:id]) do |f| %>
-      <%= render 'layouts/error_messages' %>
+<div class="main">
+  <div class="container">
+    <div class="form-heading">パスワード再設定</div>
+    <%= form_for @user, url: password_reset_path(params[:id]), html: {class: "form form-body users-form"} do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
 
       <%= hidden_field_tag :email, @user.email %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, "パスワード" %>
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, "確認用パスワード" %>
+      <%= f.label :password_confirmation, "確認用パスワード" %>
+      <%= f.password_field :password_confirmation %>
 
       <%= f.submit "更新" %>
     <% end %>
