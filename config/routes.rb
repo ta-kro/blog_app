@@ -1,15 +1,26 @@
 Rails.application.routes.draw do
 
-  root 'posts#home'
+  root 'static_pages#home'
+  get 'about', to: 'static_pages#about'
+  get 'help', to: 'static_pages#help'
+  get 'contact', to: 'static_pages#contact'
+
   resources :posts
-  get '/about', to: 'posts#about'
+
   resources :users
   get '/signup', to: 'users#new'
   post '/signup',  to: 'users#create'
+
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
+
   resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
 
 end

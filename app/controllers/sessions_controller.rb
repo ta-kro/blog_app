@@ -20,7 +20,8 @@ class SessionsController < ApplicationController
         redirect_to root_url
       end
     else
-      flash.now[:danger] = '不正なメールアドレス・パスワードです'
+      flash.now[:danger] = '不正なメールアドレス、パスワードです。'
+      @email = params[:session][:email]
       render 'new'
     end
   end
