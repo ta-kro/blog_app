@@ -32,7 +32,7 @@
       <%#= @likes_count %>
 
       <div class="post-option">
-      
+
         <% if @post.user_id == @current_user.id %>
           <div class="post-menus">
             <%= link_to "編集", edit_post_path(@post) %>
@@ -51,7 +51,24 @@
 
       </div>
 
+      <div>Comments</div>
+      <% if @post.comments.any? %>
+        <ul>
+          <% @post.comments.each do |comment| %>
+            <li>
+              <%= comment.body %>
+              <% if current_user?(@post.user) %>
+                <%= link_to '削除', post_comment_path(@post, comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }%>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
 
+      <%= form_for([@post, @post.comments.build]) do |f| %>
+        <%= f.text_field :body%>
+        <%= f.submit '投稿'%>
+      <% end %>
 
     </div>
   </div>
