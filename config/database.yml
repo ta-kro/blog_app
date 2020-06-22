@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: blogappuser
-  password: blogapppass
-  host: localhost
+  username: root
+  password: password
+  host: db
 
 development:
   <<: *default
@@ -44,9 +44,9 @@ test:
 #
 # You can use this database configuration with:
 #
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
 production:
-  <<: *default
-  database: blog_app_production
+  url: <%= ENV['DATABASE_URL'] %>
+
+# production:
+#   <<: *default
+#   database: blog_app_production
