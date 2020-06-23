@@ -1,5 +1,17 @@
 <%= form_with model: @post, class: "form form-body posts-form", local: true do |f| %>
   <%= render 'layouts/error_messages', model: f.object  %>
   <%= f.text_area :content, value: @post.content %>
+  <span class="picture">
+    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
   <%= f.submit value: "投稿" %>
 <% end %>
+
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
+  root 'posts#index'
+
   get 'about', to: 'static_pages#about'
   get 'help', to: 'static_pages#help'
   get 'contact', to: 'static_pages#contact'
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  # http://192.168.33.10:3000/letter_opener/
+  # http://localhost:3000/letter_opener/
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end

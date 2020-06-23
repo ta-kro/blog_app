@@ -31,10 +31,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  # http://192.168.33.10:3000/letter_opener/
-  config.action_mailer.default_url_options = { host: '192.168.33.10', port: '3000' }
+  # http://localhost:3000/letter_opener/
+  config.action_mailer.default_url_options = { host: 'localhost', port: '3000' }
 
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false

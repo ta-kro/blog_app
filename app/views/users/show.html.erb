@@ -16,7 +16,17 @@
       <% end %>
     </div>
 
-    <%# 以下投稿内容、いいねした投稿を並べたview %>
+    <%# 投稿内容 %>
+    <% if @user.posts.any? %>
+      <h3>投稿 (<%= @user.posts.count %>)</h3>
+      <ol class="posts-index-item">
+        <%= render @posts %>
+      </ol>
+      <%= will_paginate @posts %>
+    <% end %>
+
+
+    <%# いいねした投稿 %>
 
   </div>
 </div>
