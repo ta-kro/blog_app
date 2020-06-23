@@ -67,16 +67,21 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  private
-    def downcase_email
-      self.email = email.downcase
-    end
+  def feed
+    Post.where("user_id = ?", self.id)
+  end
 
-    def create_activation_digest #→before_createで使用
-      # acrivation_tokenの生成とactivation_digestへハッシュ化して追加
-      self.activation_token  = User.new_token
-      self.activation_digest = User.digest(self.activation_token)
-      # @user.activation_digest => ハッシュ値
-    end
+
+  private
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  def create_activation_digest #→before_createで使用
+    # acrivation_tokenの生成とactivation_digestへハッシュ化して追加
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(self.activation_token)
+    # @user.activation_digest => ハッシュ値
+  end
 
 end
