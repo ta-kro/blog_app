@@ -1,5 +1,5 @@
 <li>
-  <div class="users-index-item">
+  <div class="user-left">
     <span class="user-img">
       <% if user.image_name? %>
         <%= image_tag user.image_name.url %>
@@ -7,11 +7,15 @@
         <%= image_tag "default_icon.jpeg" %>
       <% end %>
     </span>
-    
-    <%= link_to user.name, user, class: "user-name user-right" %>
-    <% if current_user.admin? && !current_user?(user) %>
-      <%# 管理ユーザーでかつ自分以外のユーザーに削除リンクを表示 %>
-      | <%= link_to "削除", user, method: :delete, data: { confirm: "このユーザーを削除しますか？" } %>
-    <% end %>
+  </div>
+
+  <div class="user-right">
+    <div class="user-name">
+      <%= link_to user.name, user %>
+      <% if current_user.admin? && !current_user?(user) %>
+        <%# 管理ユーザーでかつ自分以外のユーザーに削除リンクを表示 %>
+        | <%= link_to "削除", user, method: :delete, data: { confirm: "このユーザーを削除しますか？" } %>
+      <% end %>
+    </div>
   </div>
 <li>

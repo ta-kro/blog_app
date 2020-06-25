@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.paginate(page: params[:page])
+    @posts = Post.paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:danger] = "削除しました"
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   

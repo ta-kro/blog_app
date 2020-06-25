@@ -1,18 +1,10 @@
 <div class="main">
   <div class="container">
-    <h1 class="users-heading">ユーザー一覧</h1>
-
-    <%= will_paginate %>
-
-    <ul class="users">
-      <%# Railsは@usersをUserオブジェクトのリストと推測し、それぞれのユーザーを_user.html.erbパーシャルで出力する %>
+    <h1 class="users-heading">ユーザー検索</h1>
+    <ul class="users-index-item">
       <%= render @users %>
     </ul>
-
     <%= will_paginate %>
-    
   </div>
 </div>
-
-
 

@@ -17,3 +17,15 @@ User.create!(
     password_confirmation: "adminuser"
   )
 end
+
+users = User.order(:created_at).take(6)
+20.times do
+  users.each { |user| user.posts.create!(content: 'content') }
+end
+
+users = User.all
+user  = users.first
+following = users[2..5]
+followers = users[3..4]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
