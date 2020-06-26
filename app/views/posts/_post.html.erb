@@ -2,9 +2,9 @@
     <div class="post-left">
         <span class="user-img">
             <% if post.user.image_name? %>
-                <%= image_tag post.user.image_name.url %>
+                <%= image_pack_tag post.user.image_name.url %>
             <% else %>
-                <%= image_tag "default_icon.jpeg" %>
+                <%= image_pack_tag "default_icon.jpeg" %>
             <% end %>
         </span>
     </div>
@@ -15,7 +15,7 @@
         </div>
 
         <%= link_to post.content, post_path(post) %>
-        <%= image_tag post.picture.url if post.picture? %>
+        <%= image_pack_tag post.picture.url if post.picture? %>
 
         <div class="post-time">
             <%= time_ago_in_words(post.created_at) %>前

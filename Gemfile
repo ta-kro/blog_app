@@ -5,10 +5,7 @@ ruby '2.6.5'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.2'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
+gem 'webpacker'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt'
@@ -17,7 +14,7 @@ gem 'rails-i18n'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'will_paginate'
-gem 'bootstrap-will_paginate'
+gem 'sprockets', '~> 3.7.2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

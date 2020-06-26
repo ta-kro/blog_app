@@ -2,9 +2,9 @@
   <div class="user-left">
     <span class="user-img">
       <% if user.image_name? %>
-        <%= image_tag user.image_name.url %>
+        <%= image_pack_tag user.image_name.url %>
       <% else %>
-        <%= image_tag "default_icon.jpeg" %>
+        <%= image_pack_tag "default_icon.jpeg" %>
       <% end %>
     </span>
   </div>

@@ -5,9 +5,9 @@
       <div class="post-user-name">
         <span class="user-img">
           <% if @post.user.image_name? %>
-            <%= image_tag @post.user.image_name.url %>
+            <%= image_pack_tag @post.user.image_name.url %>
           <% else %>
-            <%= image_tag "default_icon.jpeg" %>
+            <%= image_pack_tag "default_icon.jpeg" %>
           <% end %>
         </span>
 
@@ -16,7 +16,7 @@
 
       <p>
         <%= @post.content %>
-        <%= image_tag @post.picture.url if @post.picture? %>
+        <%= image_pack_tag @post.picture.url if @post.picture? %>
       </p>
 
       
